@@ -33,7 +33,7 @@
 <!--        <logger name="io.xdag.core.BlockchainImpl" level="DEBUG">-->
 <!--            <AppenderRef ref="BlockchainImpl"/>-->
 <!--        </logger>-->
-<!--        <logger name="io.xdag.consensus.SyncManager" level="INFO">-->
+<!--        <logger name="io.xdag.consensus.SyncManager" level="DEBUG">-->
 <!--            <AppenderRef ref="pay"/>-->
 <!--        </logger>-->
 <!--        <logger name="io.xdag.mine.MinerChannel" level="DEBUG"/>-->

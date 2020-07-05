@@ -18,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +62,16 @@ public class SyncManager {
             return blockWrapper;
           },
           throwable -> logger.error("Unexpected exception: ", throwable));
+
+  private ExecutorPipeline<BlockWrapper, Void> exec2 = exec1.add(1, 1, new Consumer<BlockWrapper>() {
+    @Override
+    public void accept(BlockWrapper block) {
+      logger.debug("Accept a blockWrapper");
+      blockQueue.add(block);
+      //estimateBlockSize(blockWrapper);
+    }
+  });
+
 
   public SyncManager(Kernel kernel) {
     this.kernel = kernel;

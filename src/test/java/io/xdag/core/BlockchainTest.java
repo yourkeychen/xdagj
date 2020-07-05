@@ -1,6 +1,7 @@
 package io.xdag.core;
 
-import static io.xdag.config.Constants.BI_REF;
+import static io.xdag.config.Constants.*;
+import static io.xdag.config.Constants.MAIN_START_AMOUNT;
 import static io.xdag.core.XdagField.FieldType.XDAG_FIELD_OUT;
 import static io.xdag.utils.BasicUtils.amount2xdag;
 import static io.xdag.utils.BasicUtils.xdag2amount;

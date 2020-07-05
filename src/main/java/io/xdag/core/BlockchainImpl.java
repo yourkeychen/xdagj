@@ -1,13 +1,6 @@
 package io.xdag.core;
 
-import static io.xdag.config.Constants.BI_APPLIED;
-import static io.xdag.config.Constants.BI_EXTRA;
-import static io.xdag.config.Constants.BI_MAIN;
-import static io.xdag.config.Constants.BI_MAIN_CHAIN;
-import static io.xdag.config.Constants.BI_MAIN_REF;
-import static io.xdag.config.Constants.BI_OURS;
-import static io.xdag.config.Constants.BI_REF;
-import static io.xdag.config.Constants.MAX_ALLOWED_EXTRA;
+import static io.xdag.config.Constants.*;
 import static io.xdag.utils.BasicUtils.amount2xdag;
 import static io.xdag.utils.BasicUtils.getDiffByHash;
 import static io.xdag.utils.BasicUtils.xdag2amount;
@@ -22,6 +15,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import io.xdag.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongycastle.util.encoders.Hex;
@@ -49,6 +43,8 @@ public class BlockchainImpl implements Blockchain {
   };
 
   private static final Logger logger = LoggerFactory.getLogger(BlockchainImpl.class);
+
+//  private static long g_apollo_fork_time = 0;
 
   private Wallet wallet;
 
@@ -387,7 +383,12 @@ public class BlockchainImpl implements Blockchain {
 
     netStatus.incMain();
     // 设置奖励
-    long reward = getCurrentReward();
+    long time = block.getTimestamp();
+    long mainNumber = blockStore.getMainNumber();
+
+    long reward = getReward(time,mainNumber);
+
+//    long reward = getCurrentReward();
 
     updateBlockFlag(block, BI_MAIN, true);
 
@@ -408,7 +409,8 @@ public class BlockchainImpl implements Blockchain {
     blockStore.mainNumberDec();
     netStatus.decMain();
 
-    long amount = getCurrentReward();
+//    long amount = getCurrentReward();
+    long amount = getReward(block.getTimestamp(),blockStore.getMainNumber());
     updateBlockFlag(block, BI_MAIN, false);
 
     // 去掉奖励和引用块的手续费
@@ -812,6 +814,27 @@ public class BlockchainImpl implements Blockchain {
   /** 根据当前区块数量计算奖励金额 cheato * */
   public long getCurrentReward() {
     return xdag2amount(1024);
+  }
+
+  public long getReward(long time,long num){
+    long start = getStartAmount(time,num);
+    long amount = start >> (num >> MAIN_BIG_PERIOD_LOG);
+    return amount;
+  }
+
+  private long getStartAmount(long time,long num){
+    long forkHeight = Config.MainNet?MAIN_APOLLO_HEIGHT:MAIN_APOLLO_TESTNET_HEIGHT;
+    long startAmount = 0;
+    if(num >= forkHeight){
+//      if(g_apollo_fork_time == 0) {
+//        g_apollo_fork_time = time;
+//      }
+      startAmount = MAIN_APOLLO_AMOUNT;
+    }else {
+      startAmount = MAIN_START_AMOUNT;
+    }
+
+    return startAmount;
   }
 
   /** 为区块block添加amount金额 * */
