@@ -53,7 +53,7 @@ public class Sync {
     kernel.setBlockStore(blockStore);
     kernel.setAccountStore(accountStore);
     kernel.setOrphanPool(orphanPool);
-    Native.init();
+    //Native.init();
     if (Native.dnet_crypt_init() < 0) {
       throw new Exception("dnet crypt init failed");
     }

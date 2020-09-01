@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class XdagWalletTest {
   public static void main(String[] args) throws Exception {
-    Native.init();
+    //Native.init();
     if (Native.dnet_crypt_init() < 0) {
       throw new Exception("dnet crypt init failed");
     }

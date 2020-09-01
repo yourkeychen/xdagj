@@ -13,7 +13,7 @@ public class WalletTest {
 
   public static void main(String[] args) throws Exception {
     Config config = new Config();
-    Native.init();
+    //Native.init();
     if (Native.dnet_crypt_init() < 0) {
       throw new Exception("dnet crypt init failed");
     }

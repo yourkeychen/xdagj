@@ -1,9 +1,9 @@
 #include "crc.h"
-#include "jni.h"
 #include "dfslib_crypt.h"
 #include "dfslib_random.h"
 #include "dnet_crypt.h"
 #include "dfsrsa.h"
+#include <jni.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>

@@ -6,7 +6,7 @@ import io.xdag.crypto.jni.Native;
 
 public class WalletTest {
   public static void main(String[] args) throws Exception {
-    Native.init();
+    //Native.init();
     if (Native.dnet_crypt_init() < 0) {
       throw new Exception("dnet crypt init failed");
     }

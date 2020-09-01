@@ -41,7 +41,7 @@ public class BlockTest {
     config.setStoreDir("/Users/punk/testRocksdb/XdagDB");
     config.setStoreBackupDir("/Users/punk/testRocksdb/XdagDB/backupdata");
 
-    Native.init();
+    //Native.init();
     if (Native.dnet_crypt_init() < 0) {
       throw new Exception("dnet crypt init failed");
     }

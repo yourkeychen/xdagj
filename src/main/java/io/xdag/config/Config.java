@@ -122,7 +122,7 @@ public class Config {
       System.arraycopy(data, 2048, xKeys.sect0_encoded, 0, 512);
       System.arraycopy(data, 2048 + 512, xKeys.sect0, 0, 512);
 
-      Native.init();
+      //Native.init();
       if (Native.load_dnet_keys(data, data.length) < 0) {
         throw new Exception("dnet crypt init failed");
       }
