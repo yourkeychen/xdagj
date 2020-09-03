@@ -55,6 +55,11 @@ src/vm_compiled_light.cpp
 src/blake2/blake2b.c
 src/randomx_jni.cpp)
 
+if (NOT Threads_FOUND AND UNIX AND NOT APPLE)
+  set(THREADS_PREFER_PTHREAD_FLAG ON)
+  find_package(Threads)
+endif()
+
 if(NOT ARCH_ID)
   # allow cross compiling
   if(CMAKE_SYSTEM_PROCESSOR STREQUAL "")
@@ -158,6 +163,8 @@ add_library(randomx
     SHARED
     ${randomx_sources})
 target_include_directories(randomx PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../jni/)
+target_link_libraries(randomx
+    PRIVATE ${CMAKE_THREAD_LIBS_INIT})
 set_property(TARGET randomx PROPERTY POSITION_INDEPENDENT_CODE ON)
 set_property(TARGET randomx PROPERTY CXX_STANDARD 11)
 set_property(TARGET randomx PROPERTY CXX_STANDARD_REQUIRED ON)
@@ -179,11 +186,6 @@ install(TARGETS randomx
 
 #set_property(TARGET randomx-codegen PROPERTY POSITION_INDEPENDENT_CODE ON)
 #set_property(TARGET randomx-codegen PROPERTY CXX_STANDARD 11)
-
-if (NOT Threads_FOUND AND UNIX AND NOT APPLE)
-  set(THREADS_PREFER_PTHREAD_FLAG ON)
-  find_package(Threads)
-endif()
 
 #add_executable(randomx-benchmark
 #  src/tests/benchmark.cpp

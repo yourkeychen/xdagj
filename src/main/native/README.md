@@ -22,6 +22,9 @@ Prerequisites:
 - gcc-x86_64-linux-gnu
 - gcc-aarch64-linux-gnu 
 - gcc-mingw-w64
+- g++-x86_64-linux-gnu
+- g++-aarch64-linux-gnu 
+- g++-mingw-w64
 - binutils-x86_64-linux-gnu
 - binutils-aarch64-linux-gnu
 - binutils-mingw-w64
