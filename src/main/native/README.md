@@ -1,9 +1,4 @@
-# Semux Native Library
-
-libsemuxxcrypto is a JNI library that aims to increase the performance Semux wallet by implementing cryptography functions in C++. 
-This library relies on thrid-parties including 
-[libsodium](https://github.com/jedisct1/libsodium) and 
-[ed25519-donna](https://github.com/floodyberry/ed25519-donna).  
+# Xdag Native Library
 
 ## Build on x86_64 Linux
 
@@ -21,13 +16,10 @@ Prerequisites:
 - autoconf
 - gcc-x86_64-linux-gnu
 - gcc-aarch64-linux-gnu 
-- gcc-mingw-w64
 - g++-x86_64-linux-gnu
-- g++-aarch64-linux-gnu 
-- g++-mingw-w64
+- g++-aarch64-linux-gnu
 - binutils-x86_64-linux-gnu
 - binutils-aarch64-linux-gnu
-- binutils-mingw-w64
 
 Steps to update your gcc and glibc
 ```
@@ -63,8 +55,11 @@ cmake -vvv -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchain-Linux-aarch64.cmake ../
 make -j$(nproc)
 ```
 
-## Windows-x86_64
+## Windows-x86_64 x86_64-pc-cygwin 
 ```
+download cygwin x86_64 from https://cygwin.com/ and install cmake,autoconf,automake,make,gcc-g++ while install cygwin
+make sure your gcc compiler is x86_64-pc-cygwin then
+
 find . -name "*.o"  | xargs rm -f
 find . -name "*.lo"  | xargs rm -f
 mkdir build && cd build
