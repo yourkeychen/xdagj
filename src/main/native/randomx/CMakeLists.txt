@@ -55,9 +55,14 @@ src/vm_compiled_light.cpp
 src/blake2/blake2b.c
 src/randomx_jni.cpp)
 
-if (NOT Threads_FOUND AND UNIX AND NOT APPLE)
-  set(THREADS_PREFER_PTHREAD_FLAG ON)
-  find_package(Threads)
+#if (NOT Threads_FOUND AND UNIX AND NOT APPLE)
+#  set(THREADS_PREFER_PTHREAD_FLAG ON)
+#  find_package(Threads)
+#endif()
+
+find_package(Threads QUIET)
+if(NOT Threads_FOUND)
+  message(FATAL_ERROR "Failed to find pthreads dependency!")
 endif()
 
 if(NOT ARCH_ID)

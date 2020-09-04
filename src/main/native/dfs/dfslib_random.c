@@ -5,8 +5,8 @@
 //#if !defined(_WIN32) && !defined(_WIN64)
 #include <unistd.h>
 #include <sys/time.h>
-#include <sys/times.h>
-#define USE_RAND48
+//#include <sys/times.h>
+//#define USE_RAND48
 //#else
 //#include <Windows.h>
 //#include <process.h>
@@ -82,11 +82,12 @@ void dfslib_random_init(void) {
 	dfs64 seed = 0, time1, time2, clock, pid;
 //#if !defined(_WIN32) && !defined(_WIN64)
 	struct timeval tv[1];
-	struct tms tms[1];
+	//struct tms tms[1];
 	gettimeofday(tv, NULL);
 	time1 = tv->tv_sec;
 	time2 = tv->tv_usec;
-	clock = times(tms);
+	//clock = times(tms);
+	clock=0;
 //#else
 //	FILETIME ft[1];
 //	GetSystemTimeAsFileTime(ft);
