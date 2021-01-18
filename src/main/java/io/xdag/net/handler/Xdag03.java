@@ -36,6 +36,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
 
+import io.xdag.libp2p.Handler.Handler;
 import org.spongycastle.util.Arrays;
 import org.spongycastle.util.encoders.Hex;
 
@@ -333,15 +334,7 @@ public class Xdag03 extends XdagHandler {
     }
 
     public void updateNetStatus(AbstractMessage message) {
-        NetStatus remoteNetStatus = message.getNetStatus();
-        log.debug("Remote netstatus:" + remoteNetStatus);
-        synchronized (kernel.getNetStatus()) {
-            kernel.getNetStatus().updateNetStatus(remoteNetStatus);
-        }
-        synchronized (kernel.getNetDBMgr()) {
-            log.debug("update netdb");
-            kernel.getNetDBMgr().updateNetDB(message.getNetDB());
-        }
+        Handler.Xdag05.rr(message, kernel);
     }
 
     public void updateNetDB(AbstractMessage message) {

@@ -39,7 +39,7 @@ public interface Xdag {
 
     ListenableFuture<SumReplyMessage> sendGetsums(long starttime, long endtime);
 
-    void dropConnection();
+    void dropConnection() throws InterruptedException;
 
     boolean isIdle();
 

@@ -43,6 +43,9 @@ import io.xdag.db.store.OrphanPool;
 import io.xdag.event.KernelBootingEvent;
 import io.xdag.event.PubSub;
 import io.xdag.event.PubSubFactory;
+import io.xdag.libp2p.Libp2pChannel;
+import io.xdag.libp2p.jvmLibp2pNetwork;
+import io.xdag.libp2p.manager.Libp2pChannelManager;
 import io.xdag.mine.MinerServer;
 import io.xdag.mine.handler.ConnectionLimitHandler;
 import io.xdag.mine.manager.AwardManager;
@@ -93,7 +96,10 @@ public class Kernel {
     protected MinerManager minerManager;
     protected MinerServer minerServer;
     protected XdagState xdagState;
+    protected jvmLibp2pNetwork jvmLibp2pNetwork;
+    protected Libp2pChannelManager libp2pChannelManager;
     protected AtomicInteger channelsAccount = new AtomicInteger(0);
+
 
     public Kernel(Config config, Wallet wallet) {
         this.config = config;
@@ -141,8 +147,11 @@ public class Kernel {
         // ====================================
         channelMgr = new XdagChannelManager(this);
         netDBMgr = new NetDBManager(config);
+        libp2pChannelManager = new Libp2pChannelManager();
+//        libp2pChannelManager = new Libp2pChannelManager(this);
         netDBMgr.init();
-
+//        jvmLibp2pNetwork = new jvmLibp2pNetwork(this);
+//        jvmLibp2pNetwork.start();
         // ====================================
         // wallet init
         // ====================================
@@ -333,6 +342,10 @@ public class Kernel {
      *
      * @return
      */
+
+    public Libp2pChannelManager getLibp2pChannelManager(){
+        return libp2pChannelManager;
+    }
     public XdagChannelManager getChannelManager() {
         return channelMgr;
     }

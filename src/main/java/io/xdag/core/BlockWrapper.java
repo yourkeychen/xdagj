@@ -31,12 +31,18 @@ public class BlockWrapper {
     private int ttl;
     /** 记录区块接收节点 */
     private Node remoteNode;
+    private io.xdag.libp2p.Node nodelib;
     // private boolean isTransaction = false;
 
     public BlockWrapper(Block block, int ttl, Node remoteNode) {
         this.block = block;
         this.ttl = ttl;
         this.remoteNode = remoteNode;
+    }
+    public BlockWrapper(Block block, int ttl, io.xdag.libp2p.Node nodelib) {
+        this.block = block;
+        this.ttl = ttl;
+        this.nodelib = nodelib;
     }
 
     public Block getBlock() {
